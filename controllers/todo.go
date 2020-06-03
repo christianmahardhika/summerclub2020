@@ -26,9 +26,9 @@ func FindTodos(c *gin.Context) {
 	models.DB.Find(&todos)
 
 	if len(todos) == 0 {
-		c.JSON(404, gin.H{"error": "Todo list not found"})
+		c.JSON(404, gin.H{"success": false, "result": nil, "errorMessage": "Record not found!"})
 	} else {
-		c.JSON(200, gin.H{"data": todos})
+		c.JSON(200, gin.H{"success": true, "result": todos, "errorMessage": nil})
 	}
 }
 
@@ -37,12 +37,12 @@ func FindTodos(c *gin.Context) {
 func FindTodo(c *gin.Context) {
 	// Get model if exist
 	var todo models.Todo
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&todo).Error; err != nil {
+	if err := models.DB.Where("id = ?", c.Query("id")).First(&todo).Error; err != nil {
 		c.JSON(404, gin.H{"error": "Todo not found!"})
 		return
 	}
 
-	c.JSON(200, gin.H{"data": todo})
+	c.JSON(200, gin.H{"success": true, "result": todo, "errorMessage": nil})
 }
 
 // POST /todos
@@ -51,7 +51,7 @@ func CreateTodo(c *gin.Context) {
 	// Validate input
 	var input CreateTodoInput
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(500, gin.H{"error": err.Error()})
+		c.JSON(500, gin.H{"success": false, "result": nil, "errorMessage": err.Error()})
 		return
 	}
 
@@ -59,7 +59,7 @@ func CreateTodo(c *gin.Context) {
 	todo := models.Todo{Title: input.Title, Note: input.Note}
 	models.DB.Create(&todo)
 
-	c.JSON(201, gin.H{"data": todo})
+	c.JSON(201, gin.H{"success": true, "result": todo, "errorMessage": nil})
 }
 
 // PATCH /todo/:id
@@ -67,8 +67,8 @@ func CreateTodo(c *gin.Context) {
 func UpdateTodo(c *gin.Context) {
 	// Get model if exist
 	var todo models.Todo
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&todo).Error; err != nil {
-		c.JSON(404, gin.H{"error": "Record not found!"})
+	if err := models.DB.Where("id = ?", c.Query("id")).First(&todo).Error; err != nil {
+		c.JSON(404, gin.H{"success": false, "result": nil, "errorMessage": "Record not found!"})
 		return
 	}
 
@@ -76,13 +76,13 @@ func UpdateTodo(c *gin.Context) {
 	var input UpdateTodoInput
 	fmt.Println(input)
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(500, gin.H{"error": err.Error()})
+		c.JSON(500, gin.H{"success": false, "result": nil, "errorMessage": err.Error()})
 		return
 	}
 
 	models.DB.Model(&todo).Updates(input)
 
-	c.JSON(201, gin.H{"data": todo})
+	c.JSON(201, gin.H{"success": true, "result": todo, "errorMessage": nil})
 }
 
 // DELETE /todo/:id
@@ -90,12 +90,12 @@ func UpdateTodo(c *gin.Context) {
 func DeleteTodo(c *gin.Context) {
 	// Get model if exist
 	var todo models.Todo
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&todo).Error; err != nil {
-		c.JSON(404, gin.H{"error": "Record not found!"})
+	if err := models.DB.Where("id = ?", c.Query("id")).First(&todo).Error; err != nil {
+		c.JSON(404, gin.H{"success": false, "result": nil, "errorMessage": "Record not found!"})
 		return
 	}
 
 	models.DB.Delete(&todo)
 
-	c.JSON(201, gin.H{"data": "Deleted"})
+	c.JSON(201, gin.H{"success": true, "result": c.Query("id"), "errorMessage": nil})
 }
