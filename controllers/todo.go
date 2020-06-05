@@ -38,7 +38,7 @@ func FindTodo(c *gin.Context) {
 	// Get model if exist
 	var todo models.Todo
 	if err := models.DB.Where("id = ?", c.Query("id")).First(&todo).Error; err != nil {
-		c.JSON(404, gin.H{"error": "Todo not found!"})
+		c.JSON(404, gin.H{"success": false, "result": nil, "errorMessage": "Todo Not Found"})
 		return
 	}
 
