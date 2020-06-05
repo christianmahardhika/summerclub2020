@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ master, todo, twitter ]
+    branches: [ todo, twitter ]
   pull_request:
-    branches: [ master, todo, twitter ]
+    branches: [ todo, twitter ]
 
 jobs:
 
