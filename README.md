@@ -2,7 +2,7 @@
 
 ## Haaa??!! Kosong???!!
 
-Liat Skeleton di Branch
+Liat Code di Branch
 
 Todo
 
