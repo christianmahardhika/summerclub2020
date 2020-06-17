@@ -9,16 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type CreateTodoInput struct {
-	Title string `json:"title" binding:"required"`
-	Note  string `json:"note" binding:"required"`
-}
-
-type UpdateTodoInput struct {
-	Title string `json:"title"`
-	Note  string `json:"note"`
-}
-
 // GET /todos
 // Find all todos
 func FindTodos(c *gin.Context) {
