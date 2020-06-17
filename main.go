@@ -21,5 +21,5 @@ func main() {
 	r.GET("/api/message/list", controllers.GetMessages)
 	r.POST("/api/message/post", controllers.PostMessage)
 
-	r.Run()
+	r.Run(":5000")
 }
