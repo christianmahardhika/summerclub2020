@@ -1,7 +1,7 @@
 **API CONTRACT**
 
 
-- GET `/api/twitter/list`
+- GET `/api/todo/list`
 
 REQUEST
 ```
@@ -14,20 +14,24 @@ RESPONSE
 	"errorMessage": null,
 	"result": [{
 		"id": 4,
-		"username": "Chris",
-		"post": "Coba coba coba"
+		"title": "Beli sayur",
+		"note": "beli sayur di pasar"
+	}, {
+		"id": 5,
+		"title": "Beli Sikat Gigi",
+		"note": "beli sikat gigi di pasar"
 	}],
 	"success": true
 }
 ```
 
-- POST `/api/twitter/create`
+- POST `/api/todo/create`
 
 REQUEST
 ```
 {
-	"username": "Chris",
-	"post": "Hai semua"
+	"title": "Ke kantor",
+	"note": "- Bawa hape\n- Ambil paket"
 }
 ```
 
@@ -38,22 +42,22 @@ RESPONSE
 {
 	"errorMessage": null,
 	"result": {
-		"id": 5,
-		"username": "Chris",
-		"post": "Hai semua"
+		"id": 6,
+		"title": "Ke kantor",
+		"note": "- Bawa hape\n- Ambil paket"
 	},
 	"success": true
 }
 ```
 
-- PATCH `/api/twitter/update?id=5`
+- PATCH `/api/todo/update?id=5`
 
 REQUEST
 ```
 {
-	"id": 5,
-	"username": "Chris",
-	"post": "Hai semuanyanya"
+	"id": 4,
+	"title": "Beli sayur",
+	"note": "beli sayur di pasar mana"
 }
 ```
 
@@ -64,15 +68,15 @@ RESPONSE
 {
 	"errorMessage": null,
 	"result": {
-		"id": 5,
-		"username": "Chris",
-		"post": "Hai semuanyanya"
+		"id": 4,
+		"title": "Beli sayur",
+		"note": "beli sayur di pasar mana"
 	},
 	"success": true
 }
 ```
 
-- DELETE `/api/twitter/delete?id=4`
+- DELETE `/api/todo/delete?id=4`
 
 REQUEST
 ```
